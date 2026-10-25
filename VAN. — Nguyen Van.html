@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>VAN. — Nguyen Van</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F5F8FC;
+      --pri: #8BBDEB;
+      --sec: #DCEBFA;
+      --tx: #172B45;
+      --mu: #8293A8;
+      --glass: rgba(255, 255, 255, .65);
+      --bd: rgba(255, 255, 255, .8);
+      --sh: 0 10px 40px rgba(23, 43, 69, .07);
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0F1A2B;
+        --sec: #1B2D47;
+        --tx: #E8F0FA;
+        --mu: #8FA3BB;
+        --glass: rgba(30, 48, 76, .55);
+        --bd: rgba(255, 255, 255, .12);
+        --sh: 0 10px 40px rgba(0, 0, 0, .3);
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0F1A2B;
+      --sec: #1B2D47;
+      --tx: #E8F0FA;
+      --mu: #8FA3BB;
+      --glass: rgba(30, 48, 76, .55);
+      --bd: rgba(255, 255, 255, .12);
+      --sh: 0 10px 40px rgba(0, 0, 0, .3);
+      color-scheme: dark
+    }
+
+    :root[data-theme="light"] {
+      --bg: #F5F8FC;
+      --sec: #DCEBFA;
+      --tx: #172B45;
+      --mu: #8293A8;
+      --glass: rgba(255, 255, 255, .65);
+      --bd: rgba(255, 255, 255, .8);
+      --sh: 0 10px 40px rgba(23, 43, 69, .07);
+      color-scheme: light
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 80px)
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--tx);
+      font: 400 16px/1.7 var(--sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .55;
+      z-index: 0;
+      pointer-events: none;
+      will-change: transform
+    }
+
+    .b1 {
+      width: 480px;
+      height: 480px;
+      background: var(--pri);
+      top: -120px;
+      right: -140px;
+      opacity: .4
+    }
+
+    .b2 {
+      width: 420px;
+      height: 420px;
+      background: var(--sec);
+      bottom: 5%;
+      left: -140px
+    }
+
+    main,
+    footer {
+      position: relative;
+      z-index: 1
+    }
+
+    section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 110px 24px 20px
+    }
+
+    nav {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      gap: 4px;
+      padding: 6px;
+      border-radius: 99px;
+      background: var(--glass);
+      border: 1px solid var(--bd);
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
+      box-shadow: var(--sh);
+      max-width: calc(100% - 24px);
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    nav a {
+      color: var(--tx);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 99px;
+      white-space: nowrap;
+      transition: background .25s
+    }
+
+    nav a:hover {
+      background: var(--sec)
+    }
+
+    nav a.logo {
+      font-family: var(--serif);
+      font-size: 19px;
+      padding: 3px 14px
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--bd);
+      backdrop-filter: blur(22px) saturate(1.5);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5);
+      border-radius: 28px;
+      box-shadow: var(--sh), inset 0 1px 0 rgba(255, 255, 255, .6);
+      transition: transform .45s cubic-bezier(.22, 1, .36, 1), box-shadow .45s
+    }
+
+    .glass.lift:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 50px rgba(23, 43, 69, .12)
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--mu);
+      font-weight: 600;
+      margin-bottom: 14px
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.01em
+    }
+
+    h2 {
+      font-size: clamp(38px, 6vw, 64px);
+      margin-bottom: 36px
+    }
+
+    h2 em,
+    h1 em {
+      font-style: italic;
+      color: var(--pri)
+    }
+
+    p.mu,
+    .mu {
+      color: var(--mu)
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: 99px;
+      font: 500 15px var(--sans);
+      text-decoration: none;
+      border: 1px solid var(--bd);
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s, background .25s;
+      color: var(--tx);
+      background: var(--glass)
+    }
+
+    .btn.p {
+      background: var(--tx);
+      color: var(--bg);
+      border-color: transparent
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(23, 43, 69, .14)
+    }
+
+    .btn:active {
+      transform: scale(.97)
+    }
+
+    .btn.off {
+      opacity: .55;
+      cursor: not-allowed
+    }
+
+    .btn.off:hover {
+      transform: none;
+      box-shadow: none
+    }
+
+    .lang {
+      border: 1px solid var(--bd);
+      background: var(--sec);
+      font: 600 12px var(--sans);
+      color: var(--mu);
+      padding: 6px 12px;
+      border-radius: 99px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform .2s
+    }
+
+    .lang b {
+      color: var(--tx)
+    }
+
+    .lang:active {
+      transform: scale(.95)
+    }
+
+    /* hero */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 40px;
+      align-items: center;
+      padding-top: 120px
+    }
+
+    h1 {
+      font-size: clamp(76px, 14vw, 168px);
+      line-height: .9
+    }
+
+    .hello {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 18px 0 8px
+    }
+
+    .lead {
+      max-width: 460px;
+      color: var(--mu);
+      font-size: 18px;
+      margin-bottom: 26px
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 26px
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pri);
+      box-shadow: 0 0 0 0 var(--pri);
+      animation: pulse 2.4s infinite
+    }
+
+    @keyframes pulse {
+      70% {
+        box-shadow: 0 0 0 10px transparent
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 transparent
+      }
+    }
+
+    .cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px
+    }
+
+    .soc {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .soc a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--tx);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: transform .25s, background .25s
+    }
+
+    .soc a:hover {
+      transform: translateY(-3px);
+      background: var(--sec)
+    }
+
+    .avatar {
+      aspect-ratio: 4/5;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 200px 200px 40px 40px;
+      animation: float 7s ease-in-out infinite
+    }
+
+    .avatar::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: inherit;
+      background: linear-gradient(160deg, var(--sec), rgba(139, 189, 235, .35))
+    }
+
+    .avatar span {
+      position: relative;
+      font-family: var(--serif);
+      font-size: 120px;
+      color: var(--tx);
+      opacity: .8
+    }
+
+    .avatar small {
+      position: absolute;
+      bottom: 26px;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--mu)
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-12px)
+      }
+    }
+
+    /* about */
+    .about {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: start
+    }
+
+    .about .big {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.3
+    }
+
+    .cards2 {
+      display: grid;
+      gap: 16px
+    }
+
+    .mini {
+      padding: 24px 26px
+    }
+
+    .mini h3 {
+      font-size: 24px;
+      margin-bottom: 6px
+    }
+
+    .mini p {
+      color: var(--mu);
+      font-size: 15px;
+      line-height: 1.6
+    }
+
+    /* grids */
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    .do {
+      padding: 30px
+    }
+
+    .ic {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: var(--sec);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-size: 22px;
+      margin-bottom: 22px;
+      transition: transform .4s, background .4s
+    }
+
+    .do:hover .ic {
+      transform: rotate(-8deg) scale(1.08);
+      background: var(--pri)
+    }
+
+    .do h3 {
+      font-size: 27px;
+      margin-bottom: 8px
+    }
+
+    .do p {
+      color: var(--mu);
+      font-size: 15px;
+      line-height: 1.6
+    }
+
+    .stack {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px
+    }
+
+    .stack .glass {
+      padding: 26px
+    }
+
+    .stack h3 {
+      font-size: 22px;
+      margin-bottom: 16px
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chip {
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: var(--sec);
+      font-size: 13px;
+      font-weight: 500;
+      transition: background .25s, transform .25s
+    }
+
+    .chip:hover {
+      background: var(--pri);
+      transform: translateY(-2px)
+    }
+
+    .note {
+      margin-top: 18px;
+      font-size: 13px
+    }
+
+    /* projects */
+    .proj {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      overflow: hidden;
+      margin-bottom: 22px
+    }
+
+    .proj:nth-child(even) .thumb {
+      order: 2
+    }
+
+    .thumb {
+      min-height: 280px;
+      position: relative;
+      overflow: hidden;
+      background: var(--sec)
+    }
+
+    .thumb i {
+      position: absolute;
+      border-radius: 22px;
+      background: var(--glass);
+      border: 1px solid var(--bd);
+      box-shadow: var(--sh);
+      transition: transform .6s cubic-bezier(.22, 1, .36, 1)
+    }
+
+    .proj:hover .thumb i:nth-child(1) {
+      transform: translate(-8px, -8px)
+    }
+
+    .proj:hover .thumb i:nth-child(2) {
+      transform: translate(8px, 6px)
+    }
+
+    .thumb i:nth-child(1) {
+      left: 12%;
+      top: 16%;
+      width: 58%;
+      height: 46%
+    }
+
+    .thumb i:nth-child(2) {
+      right: 10%;
+      bottom: 14%;
+      width: 50%;
+      height: 40%;
+      background: rgba(139, 189, 235, .55)
+    }
+
+    .thumb b {
+      position: absolute;
+      left: 24px;
+      top: 20px;
+      font: 600 11px var(--sans);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--mu);
+      z-index: 2
+    }
+
+    .pi {
+      padding: 38px
+    }
+
+    .pi h3 {
+      font-size: 42px;
+      margin-bottom: 8px
+    }
+
+    .pi p {
+      color: var(--mu);
+      margin-bottom: 18px
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--mu);
+      margin: 14px 0 22px
+    }
+
+    .meta strong {
+      color: var(--tx);
+      font-weight: 600
+    }
+
+    .chip.ph {
+      background: transparent;
+      border: 1px dashed var(--mu);
+      color: var(--mu)
+    }
+
+    /* timeline */
+    .tl {
+      position: relative;
+      max-width: 640px;
+      padding-left: 44px
+    }
+
+    .tl::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(var(--pri), var(--sec))
+    }
+
+    .tl li {
+      list-style: none;
+      position: relative;
+      padding: 18px 26px;
+      margin-bottom: 14px;
+      font-family: var(--serif);
+      font-size: 26px;
+      line-height: 1.2
+    }
+
+    .tl li::before {
+      content: "";
+      position: absolute;
+      left: -41px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      margin-top: -7px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--pri)
+    }
+
+    .shot {
+      position: absolute;
+      inset: 56px 24px 24px;
+      border-radius: 16px;
+      background: var(--glass);
+      border: 1px solid var(--bd);
+      box-shadow: var(--sh);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .6s cubic-bezier(.22, 1, .36, 1)
+    }
+
+    .proj:hover .shot {
+      transform: translateY(-6px)
+    }
+
+    .shot .bar {
+      display: flex;
+      gap: 6px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--bd)
+    }
+
+    .shot u {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--pri);
+      opacity: .7
+    }
+
+    .shot .ph-img {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      color: var(--mu);
+      font-size: 13px;
+      position: relative;
+      background: repeating-linear-gradient(45deg, transparent 0 12px, rgba(139, 189, 235, .12) 12px 24px)
+    }
+
+    .shot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block
+    }
+
+    .shot img[hidden],
+    .avatar img[hidden] {
+      display: none
+    }
+
+    .avatar img {
+      position: absolute;
+      inset: 14px;
+      width: calc(100% - 28px);
+      height: calc(100% - 28px);
+      object-fit: cover;
+      border-radius: inherit;
+      z-index: 1
+    }
+
+    .facts {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 18px
+    }
+
+    .facts div {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.5
+    }
+
+    .facts dt {
+      color: var(--mu);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding-top: 3px
+    }
+
+    .facts dd {
+      margin: 0
+    }
+
+    .facts dd.mu {
+      font-style: italic
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px
+    }
+
+    .cred {
+      padding: 32px
+    }
+
+    .cred h3 {
+      font-size: 30px;
+      margin: 6px 0 10px
+    }
+
+    .cred p.d {
+      color: var(--mu);
+      margin-bottom: 18px
+    }
+
+    @media (max-width:700px) {
+      .grid2 {
+        grid-template-columns: 1fr
+      }
+
+      .facts div {
+        grid-template-columns: 1fr;
+        gap: 2px
+      }
+    }
+
+    /* goals */
+    .goal {
+      padding: 34px
+    }
+
+    .goal .eyebrow {
+      color: var(--pri)
+    }
+
+    .goal p {
+      font-family: var(--serif);
+      font-size: 25px;
+      line-height: 1.3
+    }
+
+    /* contact */
+    .contact {
+      text-align: center;
+      padding: 64px 24px
+    }
+
+    .contact h2 {
+      margin-bottom: 14px
+    }
+
+    .contact .cta {
+      justify-content: center;
+      margin: 26px 0 0
+    }
+
+    footer {
+      text-align: center;
+      padding: 70px 24px 40px;
+      color: var(--mu);
+      font-size: 14px
+    }
+
+    /* reveal */
+    .js .rv {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .9s cubic-bezier(.22, 1, .36, 1) var(--d, 0s), transform .9s cubic-bezier(.22, 1, .36, 1) var(--d, 0s)
+    }
+
+    .js .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .js .rv {
+        opacity: 1;
+        transform: none;
+        transition: none
+      }
+
+      .avatar,
+      .dot {
+        animation: none
+      }
+
+      html {
+        scroll-behavior: auto
+      }
+    }
+
+    @media (max-width:860px) {
+
+      #hero,
+      .about,
+      .proj {
+        grid-template-columns: 1fr
+      }
+
+      .grid3 {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .stack {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .avatar {
+        max-width: 300px
+      }
+
+      .proj:nth-child(even) .thumb {
+        order: 0
+      }
+
+      .thumb {
+        min-height: 220px
+      }
+    }
+
+    @media (max-width:560px) {
+
+      .grid3,
+      .stack {
+        grid-template-columns: 1fr
+      }
+
+      section {
+        padding-top: 90px
+      }
+
+      .pi {
+        padding: 28px
+      }
+
+      .tl li {
+        font-size: 22px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blob b1" data-p=".06"></div>
+  <div class="blob b2" data-p="-.05"></div>
+  <nav><a class="logo" href="#hero">VAN.</a><button class="lang" id="themeBtn" type="button"
+      aria-label="Toggle dark/light theme" title="Toggle theme">🌙</button><button class="lang" id="lang" type="button"
+      aria-label="Switch language / Đổi ngôn ngữ"><b>EN</b> / <span>VI</span></button><a href="#about">About</a><a
+      href="#do">Focus</a><a href="#stack">Stack</a><a href="#projects">Projects</a><a href="#journey">Journey</a><a
+      href="#contact">Contact</a></nav>
+  <main>
+    <section id="hero">
+      <div>
+        <div class="status glass rv"><span class="dot"></span>Student &amp; Aspiring Developer</div>
+        <h1 class="rv" style="--d:.08s">VAN<em>.</em></h1>
+        <div class="hello rv" style="--d:.16s">Hello, I’m Văn.</div>
+        <p class="lead rv" style="--d:.24s">Exploring technology, building ideas, and creating my own path.</p>
+        <div class="cta rv" style="--d:.32s"><a class="btn p" href="#about">Explore My World <span>↓</span></a><a
+            class="btn" href="#projects">View Projects</a></div>
+        <div class="soc rv" style="--d:.4s"><a class="glass" href="https://github.com/NLKV10072011" target="_blank"
+            rel="noopener" title="GitHub: NLKV10072011">Gh</a><a class="glass"
+            href="mailto:nlkienvan123456789@gmail.com" title="Email: nlkienvan123456789@gmail.com">@</a><a class="glass"
+            href="#contact" title="LinkedIn (link to be added)">in</a></div>
+      </div>
+      <div class="avatar glass rv" style="--d:.2s"><img id="avatarImg" alt="Portrait of Văn"
+          hidden><span>V</span><small>Avatar placeholder</small></div>
+    </section>
+
+    <section id="about">
+      <p class="eyebrow rv">About me</p>
+      <h2 class="rv">Beyond the <em>screen.</em></h2>
+      <div class="about">
+        <div class="rv">
+          <p class="big">Hi, I’m Văn. I’m a student passionate about technology, programming, and continuous learning. I
+            enjoy exploring new ideas, building digital products, and challenging myself to become better every day.</p>
+        </div>
+        <div class="cards2">
+          <div class="glass mini lift rv">
+            <h3>Who I am</h3>
+            <p>A Vietnamese student with a future-oriented mindset and an international outlook.</p>
+          </div>
+          <div class="glass mini lift rv" style="--d:.08s">
+            <h3>Interests</h3>
+            <p>Programming, web, AI, languages and exploring new technology.</p>
+          </div>
+          <div class="glass mini lift rv" style="--d:.16s">
+            <h3>Mindset</h3>
+            <p>Curious, consistent, and always trying to improve a little each day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="do">
+      <p class="eyebrow rv">What I do</p>
+      <h2 class="rv">Where my <em>curiosity</em> goes.</h2>
+      <div class="grid3">
+        <div class="glass do lift rv">
+          <div class="ic">{ }</div>
+          <h3>Programming</h3>
+          <p>Learning to think in logic and turn ideas into working code.</p>
+        </div>
+        <div class="glass do lift rv" style="--d:.06s">
+          <div class="ic">◫</div>
+          <h3>Web Development</h3>
+          <p>Exploring how interfaces are designed, built and shipped.</p>
+        </div>
+        <div class="glass do lift rv" style="--d:.12s">
+          <div class="ic">✦</div>
+          <h3>Artificial Intelligence</h3>
+          <p>Interested in how AI works and how it can help people.</p>
+        </div>
+        <div class="glass do lift rv">
+          <div class="ic">Aa</div>
+          <h3>English &amp; IELTS</h3>
+          <p>Building language skills for study and communication worldwide.</p>
+        </div>
+        <div class="glass do lift rv" style="--d:.06s">
+          <div class="ic">⌬</div>
+          <h3>Technology Exploration</h3>
+          <p>Trying new tools, products and ideas to see what’s possible.</p>
+        </div>
+        <div class="glass do lift rv" style="--d:.12s">
+          <div class="ic">↗</div>
+          <h3>Self Development</h3>
+          <p>Habits, reflection and steady improvement over time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <p class="eyebrow rv">Tech stack</p>
+      <h2 class="rv">Currently <em>exploring.</em></h2>
+      <div class="stack">
+        <div class="glass lift rv">
+          <h3>Frontend</h3>
+          <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span
+              class="chip">JavaScript</span><span class="chip">React</span></div>
+        </div>
+        <div class="glass lift rv" style="--d:.06s">
+          <h3>Backend</h3>
+          <div class="chips"><span class="chip">Node.js</span><span class="chip">Express</span></div>
+        </div>
+        <div class="glass lift rv" style="--d:.12s">
+          <h3>Programming</h3>
+          <div class="chips"><span class="chip">Python</span><span class="chip">C++</span></div>
+        </div>
+        <div class="glass lift rv" style="--d:.18s">
+          <h3>Database</h3>
+          <div class="chips"><span class="chip">SQL</span><span class="chip">Firebase</span></div>
+        </div>
+      </div>
+      <p class="mu note rv">These are technologies I’m learning and exploring — not a claim of mastery.</p>
+    </section>
+
+    <section id="projects">
+      <p class="eyebrow rv">Featured projects</p>
+      <h2 class="rv">Things I’m <em>building.</em></h2>
+      <article class="glass proj rv">
+        <div class="thumb"><b>ng_van</b>
+          <div class="shot">
+            <div class="bar"><u></u><u></u><u></u></div>
+            <div class="ph-img"><img alt="ng_van screenshot" hidden>
+              <p>Screenshot coming soon</p>
+            </div>
+          </div>
+        </div>
+        <div class="pi">
+          <h3>ng_van</h3>
+          <p>Personal English learning platform.</p>
+          <div class="chips"><span class="chip ph">Tech stack · to be added</span></div>
+          <p class="meta"><strong>Status</strong> · to be updated</p>
+          <div class="cta" style="margin:0"><a class="btn off" href="#projects" data-soon>GitHub</a><a class="btn off"
+              href="#projects" data-soon>Live Demo</a></div>
+        </div>
+      </article>
+      <article class="glass proj rv">
+        <div class="thumb"><b>Winieleaf</b>
+          <div class="shot">
+            <div class="bar"><u></u><u></u><u></u></div>
+            <div class="ph-img"><img alt="Winieleaf screenshot" hidden>
+              <p>Screenshot coming soon</p>
+            </div>
+          </div>
+        </div>
+        <div class="pi">
+          <h3>Winieleaf</h3>
+          <p>Web development project.</p>
+          <div class="chips"><span class="chip ph">Tech stack · to be added</span></div>
+          <p class="meta"><strong>Status</strong> · to be updated</p>
+          <div class="cta" style="margin:0"><a class="btn off" href="#projects" data-soon>GitHub</a><a class="btn off"
+              href="#projects" data-soon>Live Demo</a></div>
+        </div>
+      </article>
+      <article class="glass proj rv">
+        <div class="thumb"><b>SkinSync</b>
+          <div class="shot">
+            <div class="bar"><u></u><u></u><u></u></div>
+            <div class="ph-img"><img alt="SkinSync screenshot" hidden>
+              <p>Screenshot coming soon</p>
+            </div>
+          </div>
+        </div>
+        <div class="pi">
+          <h3>SkinSync</h3>
+          <p>Technology application project.</p>
+          <div class="chips"><span class="chip ph">Tech stack · to be added</span></div>
+          <p class="meta"><strong>Status</strong> · to be updated</p>
+          <div class="cta" style="margin:0"><a class="btn off" href="#projects" data-soon>GitHub</a><a class="btn off"
+              href="#projects" data-soon>Live Demo</a></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="journey">
+      <p class="eyebrow rv">My journey</p>
+      <h2 class="rv">One step at a <em>time.</em></h2>
+      <ul class="tl" style="padding-left:44px">
+        <li class="glass rv">Learning programming</li>
+        <li class="glass rv">Exploring web development</li>
+        <li class="glass rv">Improving English</li>
+        <li class="glass rv">Building personal projects</li>
+        <li class="glass rv">Preparing for international education</li>
+      </ul>
+    </section>
+
+    <section id="credentials">
+      <p class="eyebrow rv">Credentials</p>
+      <h2 class="rv">Certificates &amp; <em>honors.</em></h2>
+      <div class="grid2">
+        <div class="glass cred lift rv">
+          <p class="eyebrow">English</p>
+          <h3>English proficiency</h3>
+          <p class="d">IELTS or other test results will be listed here once confirmed.</p>
+          <div class="chips"><span class="chip ph">IELTS · In progress</span></div>
+        </div>
+        <div class="glass cred lift rv" style="--d:.08s">
+          <p class="eyebrow">Programming</p>
+          <h3>HackerRank &amp; Skills</h3>
+          <p class="d">Verified skill certificates and milestones on problem solving.</p>
+          <div class="chips"><a class="chip" href="https://www.hackerrank.com/certificates/iframe/b1c858152955"
+              target="_blank" rel="noopener" style="text-decoration:none;color:inherit">HackerRank Cert #1 ↗</a><a
+              class="chip" href="https://www.hackerrank.com/certificates/iframe/342978ee0ec1" target="_blank"
+              rel="noopener" style="text-decoration:none;color:inherit">HackerRank Cert #2 ↗</a><a class="chip"
+              href="https://www.hackerrank.com/certificates/iframe/fcf17e4e058e" target="_blank" rel="noopener"
+              style="text-decoration:none;color:inherit">HackerRank Cert #3 ↗</a><a class="chip"
+              href="https://www.hackerrank.com/certificates/iframe/7b7dbd2a8b49" target="_blank" rel="noopener"
+              style="text-decoration:none;color:inherit">HackerRank Cert #4 ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="goals">
+      <p class="eyebrow rv">Goals</p>
+      <h2 class="rv">Building towards the <em>future.</em></h2>
+      <div class="grid3">
+        <div class="glass goal lift rv">
+          <p class="eyebrow">Education</p>
+          <p>Continuously improving academic knowledge and English proficiency.</p>
+        </div>
+        <div class="glass goal lift rv" style="--d:.08s">
+          <p class="eyebrow">Technology</p>
+          <p>Developing programming skills and building meaningful digital products.</p>
+        </div>
+        <div class="glass goal lift rv" style="--d:.16s">
+          <p class="eyebrow">Future</p>
+          <p>Working towards international education and a career in technology.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="glass contact rv">
+        <p class="eyebrow">Contact</p>
+        <h2>Let’s <em>connect.</em></h2>
+        <p class="mu">Say hello — I’m always happy to talk about technology and learning.</p>
+        <div class="cta"><a class="btn p" href="https://github.com/NLKV10072011" target="_blank"
+            rel="noopener">GitHub</a><a class="btn" href="mailto:nlkienvan123456789@gmail.com">Send Email</a><button
+            class="btn" id="copyEmailBtn" type="button">Copy Email</button><a class="btn off" href="#contact"
+            data-soon>LinkedIn</a></div>
+        <p class="mu note" id="contactNote">nlkienvan123456789@gmail.com · Based in Đà Nẵng, Vietnam</p>
+      </div>
+    </section>
+  </main>
+  <footer>Designed &amp; Built by Văn Nguyen © 2026</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.17/dist/motion.js"></script>
+  <script>
+    (function () {
+      var d = document.documentElement, rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      d.classList.add('js');
+      var M = window.Motion;
+      var els = [].slice.call(document.querySelectorAll('.rv'));
+      function show(el) {
+        if (el.classList.contains('in')) return;
+        el.classList.add('in');
+        try {
+          if (M && M.animate && !rm && el.classList.contains('lift')) { /* spring pop for cards */
+            M.animate(el, { scale: [.97, 1] }, { type: 'spring', stiffness: 180, damping: 18 });
+          }
+        } catch (e) { }
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target) } }) }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+        els.forEach(function (el) { io.observe(el) });
+      } else els.forEach(show);
+      setTimeout(function () { els.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight) show(el) }) }, 1500);
+      /* parallax blobs */
+      if (!rm) {
+        var bl = [].slice.call(document.querySelectorAll('.blob')), t = false;
+        addEventListener('scroll', function () {
+          if (t) return; t = true; requestAnimationFrame(function () {
+            bl.forEach(function (b) { b.style.transform = 'translateY(' + (scrollY * parseFloat(b.dataset.p)) * -3 + 'px)' }); t = false
+          })
+        }, { passive: true });
+      }
+      /* CONFIG: fill in real content here */
+      var CFG = {
+        avatar: 'https://github.com/NLKV10072011.png', projects: {
+          ng_van: { shot: '', github: 'https://github.com/NLKV10072011', demo: '', stack: ['HTML', 'CSS', 'JavaScript'], audience: 'Students & Self-learners', problem: 'Tools and resources for self-paced English learning.' },
+          Winieleaf: { shot: '', github: 'https://github.com/NLKV10072011/winieleaft1', demo: '', stack: ['Web', 'Frontend'], audience: 'Web Users', problem: 'Modern responsive web interface.' },
+          SkinSync: { shot: '', github: 'https://github.com/NLKV10072011', demo: '', stack: ['Python', 'Application'], audience: 'Personal Care', problem: 'Technology application for daily routine tracking.' }
+        }
+      };
+      var av = document.getElementById('avatarImg');
+      if (CFG.avatar) { av.src = CFG.avatar; av.hidden = false; var ac = document.querySelector('.avatar'); ac.querySelector('span').hidden = true; ac.querySelector('small').hidden = true; }
+      document.querySelectorAll('article.proj').forEach(function (ar) {
+        var c = CFG.projects[ar.querySelector('h3').textContent] || {}, pi = ar.querySelector('.pi'), ch = pi.querySelector('.chips');
+        ch.insertAdjacentHTML('beforebegin', '<dl class="facts"><div><dt>Built for</dt><dd' + (c.audience ? '>' + c.audience : ' class="mu">To be added') + '</dd></div><div><dt>Problem it solves</dt><dd' + (c.problem ? '>' + c.problem : ' class="mu">To be added') + '</dd></div></dl>');
+        if (c.stack && c.stack.length) ch.innerHTML = c.stack.map(function (s) { return '<span class="chip">' + s + '</span>' }).join('');
+        if (c.shot) { var im = ar.querySelector('.shot img'); im.src = c.shot; im.hidden = false; ar.querySelector('.ph-img p').hidden = true; }
+        var bs = ar.querySelectorAll('.btn');
+        [c.github, c.demo].forEach(function (u, i) { if (u) { bs[i].href = u; bs[i].target = '_blank'; bs[i].rel = 'noopener'; bs[i].classList.remove('off'); bs[i].removeAttribute('data-soon'); } });
+      });
+      /* Theme toggle */
+      var tb = document.getElementById('themeBtn');
+      function updateThemeIcon(t) { if (tb) tb.textContent = t === 'dark' ? '☀️' : '🌙'; }
+      function setTheme(t) {
+        d.setAttribute('data-theme', t);
+        updateThemeIcon(t);
+        try { localStorage.setItem('van-theme', t) } catch (e) { }
+      }
+      var initTheme = 'light';
+      try { initTheme = localStorage.getItem('van-theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light') } catch (e) { }
+      setTheme(initTheme);
+      if (tb) { tb.addEventListener('click', function () { setTheme(d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark') }); }
+
+      /* Copy email */
+      var cb = document.getElementById('copyEmailBtn');
+      if (cb) {
+        cb.addEventListener('click', function () {
+          var email = 'nlkienvan123456789@gmail.com';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(function () {
+              var orig = cb.innerHTML;
+              cb.textContent = d.lang === 'vi' ? '✓ Đã sao chép!' : '✓ Copied!';
+              setTimeout(function () { cb.innerHTML = orig }, 2000);
+            }).catch(function () { location.href = 'mailto:' + email });
+          } else { location.href = 'mailto:' + email }
+        });
+      }
+
+      /* EN/VI */
+      var VI = {
+        '<span class="dot"></span>Student &amp; Aspiring Developer': '<span class="dot"></span>Học sinh &amp; Lập trình viên tương lai',
+        'Hello, I’m Văn.': 'Xin chào, mình là Văn.',
+        'Explore My World <span>↓</span>': 'Khám phá thế giới của mình <span>↓</span>',
+        'View Projects': 'Xem dự án',
+        'Send Email': 'Gửi Email',
+        'Copy Email': 'Sao chép Email',
+        'Built for': 'Dành cho', 'Problem it solves': 'Bài toán giải quyết', 'To be added': 'Sẽ bổ sung', 'Screenshot coming soon': 'Ảnh chụp màn hình sẽ sớm có',
+        'English proficiency': 'Trình độ tiếng Anh', 'HackerRank &amp; Skills': 'Kỹ năng &amp; HackerRank',
+        'IELTS or other test results will be listed here once confirmed.': 'Điểm IELTS hoặc các chứng chỉ khác sẽ được thêm vào đây sau khi có kết quả chính thức.',
+        'Verified skill certificates and milestones on problem solving.': 'Các chứng chỉ kỹ năng và giải thuật đã được xác thực.',
+        'IELTS · In progress': 'IELTS · Đang học &amp; chuẩn bị',
+        'Avatar placeholder': 'Ảnh đại diện (placeholder)',
+        'Hi, I’m Văn. I’m a student passionate about technology, programming, and continuous learning. I enjoy exploring new ideas, building digital products, and challenging myself to become better every day.': 'Xin chào, mình là Văn. Mình là học sinh đam mê công nghệ, lập trình và việc học không ngừng. Mình thích khám phá ý tưởng mới, xây dựng sản phẩm số và thử thách bản thân để tiến bộ hơn mỗi ngày.',
+        'Who I am': 'Mình là ai', 'Interests': 'Sở thích', 'Mindset': 'Tư duy',
+        'A Vietnamese student with a future-oriented mindset and an international outlook.': 'Một học sinh Việt Nam có tư duy hướng về tương lai và tầm nhìn quốc tế.',
+        'Programming, web, AI, languages and exploring new technology.': 'Lập trình, web, AI, ngoại ngữ và khám phá công nghệ mới.',
+        'Curious, consistent, and always trying to improve a little each day.': 'Tò mò, kiên trì và luôn cố gắng tiến bộ thêm một chút mỗi ngày.',
+        'Learning to think in logic and turn ideas into working code.': 'Học tư duy logic và biến ý tưởng thành code chạy được.',
+        'Exploring how interfaces are designed, built and shipped.': 'Tìm hiểu cách giao diện được thiết kế, xây dựng và đưa vào sử dụng.',
+        'Interested in how AI works and how it can help people.': 'Quan tâm đến cách AI hoạt động và cách nó giúp ích cho con người.',
+        'Building language skills for study and communication worldwide.': 'Rèn luyện ngoại ngữ để học tập và giao tiếp với thế giới.',
+        'Trying new tools, products and ideas to see what’s possible.': 'Thử các công cụ, sản phẩm và ý tưởng mới để xem điều gì có thể.',
+        'Habits, reflection and steady improvement over time.': 'Thói quen, sự nhìn lại bản thân và tiến bộ đều đặn theo thời gian.',
+        'These are technologies I’m learning and exploring — not a claim of mastery.': 'Đây là những công nghệ mình đang học và tìm hiểu — không phải tuyên bố đã thành thạo.',
+        'Personal English learning platform.': 'Nền tảng học tiếng Anh cá nhân.',
+        'Web development project.': 'Dự án phát triển web.',
+        'Technology application project.': 'Dự án ứng dụng công nghệ.',
+        'Tech stack · to be added': 'Công nghệ · sẽ bổ sung',
+        '<strong>Status</strong> · to be updated': '<strong>Trạng thái</strong> · sẽ cập nhật',
+        'Learning programming': 'Học lập trình',
+        'Exploring web development': 'Khám phá phát triển web',
+        'Improving English': 'Nâng cao tiếng Anh',
+        'Building personal projects': 'Xây dựng các dự án cá nhân',
+        'Preparing for international education': 'Chuẩn bị cho con đường học tập quốc tế',
+        'Continuously improving academic knowledge and English proficiency.': 'Không ngừng nâng cao kiến thức học tập và trình độ tiếng Anh.',
+        'Developing programming skills and building meaningful digital products.': 'Phát triển kỹ năng lập trình và xây dựng những sản phẩm số có ý nghĩa.',
+        'Working towards international education and a career in technology.': 'Hướng tới nền giáo dục quốc tế và sự nghiệp trong ngành công nghệ.',
+        'Say hello — I’m always happy to talk about technology and learning.': 'Cứ chào mình nhé — mình luôn vui khi trò chuyện về công nghệ và việc học.',
+        'nlkienvan123456789@gmail.com · Based in Đà Nẵng, Vietnam': 'nlkienvan123456789@gmail.com · Sống tại Đà Nẵng, Việt Nam',
+        'Designed &amp; Built by Văn Nguyen © 2026': 'Thiết kế &amp; xây dựng bởi Văn Nguyen © 2026'
+      };
+      function nz(s) { return s.replace(/\s+/g, ' ').trim() }
+      var tr = [].slice.call(document.querySelectorAll('h3,p,li,dt,dd,.btn,.chip,.hello,.status,footer,small'));
+      tr.forEach(function (el) { el.setAttribute('data-en', el.innerHTML) });
+      var lb = document.getElementById('lang');
+      function setLang(l) {
+        tr.forEach(function (el) { var en = el.getAttribute('data-en'), v = VI[nz(en)]; el.innerHTML = (l === 'vi' && v) ? v : en });
+        d.lang = l;
+        document.querySelectorAll('[data-soon]').forEach(function (a) { a.title = l === 'vi' ? 'Sắp có liên kết' : 'Link coming soon' });
+        lb.innerHTML = l === 'vi' ? '<span>EN</span> / <b>VI</b>' : '<b>EN</b> / <span>VI</span>';
+        try { localStorage.setItem('van-lang', l) } catch (e) { }
+      }
+      lb.addEventListener('click', function () { setLang(d.lang === 'vi' ? 'en' : 'vi') });
+      var saved = 'en'; try { saved = localStorage.getItem('van-lang') || 'en' } catch (e) { }
+      if (saved === 'vi') setLang('vi');
+      /* placeholder links do nothing */
+      document.querySelectorAll('[data-soon]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault() }); a.title = 'Link coming soon'; a.setAttribute('aria-disabled', 'true') });
+    })();
+  </script>
+</body>
+
+</html>
